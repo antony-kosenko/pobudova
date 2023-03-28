@@ -1,3 +1,4 @@
+/* Sidebar config */
 .sidebar-container {
     margin: 0;
     position: fixed;
@@ -36,6 +37,7 @@
     margin: 5px 0 5px 0;
 }
 
+/* Dropdown menu corrections */
 .user-dropdown {
     display: flex;
 
@@ -45,10 +47,11 @@
     margin-right: 20px;
 }
 
+/* Banner image */
 .main-banner {
-    max-width: 100vw;
-    height: 30vh;
     display: block;
+    max-width: 100vw;
+    height: 160px;
     margin: auto;
     object-fit: cover;
     text-align: center;

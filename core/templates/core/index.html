@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{# Head tags : JS, CSS #}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'core/index.css' %}">
+{% endblock %}
+{# ---------------------- #}
+
+{# Title #}
+{% block title %}
+    Home
+{% endblock %}
+{# ---------------------- #}
+
+{# Dashboard content #}
+{% block conent %}
+<section class="main-dashboard">
+    <h1>DASHBOARD</h1>
+</section>
+{% endblock %}
+{# ---------------------- #}
