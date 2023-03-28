@@ -1,0 +1,46 @@
+.sidebar-container {
+    margin: 0;
+    position: fixed;
+    border-radius: 10px;
+    left: 20px;
+    top: 30%;
+    padding: 10px;
+    background-color: rgba(220, 220, 220, 0.28);
+    height: fit-content;
+    width: 70px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    list-style-type: none;
+}
+
+.sidebar-container .sidebar-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 70px;
+}
+.sidebar-container .sidebar-item a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.sidebar-container .sidebar-item a img {
+    height: 30px;
+    width: 40px;
+}
+
+.sidebar-container hr {
+    margin: 5px 0 5px 0;
+}
+
+.user-dropdown {
+    display: flex;
+
+}
+
+.dropdown {
+    margin-right: 20px;
+}
