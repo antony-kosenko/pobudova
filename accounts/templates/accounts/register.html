@@ -1,0 +1,8 @@
+<h1>REGISTRATION</h1>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{ user_creation_form.as_p }}
+
+    <input type="submit" name="Create User">
+</form>

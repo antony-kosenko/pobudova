@@ -1,0 +1,65 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'core/css/starting_page.css' %}">
+    <title>Welcome to Pobudova</title>
+</head>
+<body>
+<div class="container-fluid">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <div class="col-md-3 mb-2 mb-md-0">
+        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-heart-fill" viewBox="0 0 16 16">
+              <path d="M7.293 1.5a1 1 0 0 1 1.414 0L11 3.793V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v3.293l2.354 2.353a.5.5 0 0 1-.708.707L8 2.207 1.354 8.853a.5.5 0 1 1-.708-.707L7.293 1.5Z"/>
+              <path d="m14 9.293-6-6-6 6V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9.293Zm-6-.811c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.691 0-5.018Z"/>
+          </svg>
+        </a>
+      </div>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+        <li><a href="#" class="nav-link px-2">Features</a></li>
+        <li><a href="#" class="nav-link px-2">Pricing</a></li>
+        <li><a href="#" class="nav-link px-2">FAQs</a></li>
+        <li><a href="#" class="nav-link px-2">About</a></li>
+      </ul>
+
+      <div class="col-md-3 text-end">
+        <button type="button" class="btn btn-outline-primary me-2" onclick="location.href='{% url 'accounts:login' %}';">Login</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='{% url 'accounts:register' %}';">Sign-up</button>
+      </div>
+    </header>
+  </div>
+    <section class="top-section">
+
+        <img src="{% static 'accounts/img/intro_image.jpg' %}" alt="city-logo">
+
+        <div class="welcome-div">
+            <h1>Welcome, Citizen!</h1>
+            <br>
+            <h3>Glad to see You at "Pobudova"!</h3>
+            <br>
+            <p>This means You care about your home.</p>
+            <p>We are happy to help You record and track Your utility expenses, and You will have more time to implement Your own interesting ideas into life!</p>
+        </div>
+    </section>
+    <hr>
+    <section class="bottom-section">
+        <div class="col-lg-6 col-xxl-4 my-5 mx-auto">
+            <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="button" onclick="location.href='{% url 'accounts:register' %}';">
+                Get Started
+            </button>
+            <button class="btn btn-outline-secondary" type="button">Button title</button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
