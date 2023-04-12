@@ -4,10 +4,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 
+import logging
+
 from accounts.forms import CreateUserForm
 
 
-# TODO Attach a login_required() decorator
+logger = logging.getLogger('accounts')
 
 
 def register_view(request):
@@ -15,10 +17,11 @@ def register_view(request):
      Contains a registration form handles a communication with DB to create a new User object"""
     form = CreateUserForm
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            user_name = form.cleaned_data.get('username')
+        new_user = CreateUserForm(request.POST)
+        if new_user.is_valid():
+            new_user.save()
+            user_name = new_user.cleaned_data.get('username')
+            logger.info(f"New user registered ID: [{new_user.auto_id}]")
             messages.success(request, f'User {user_name} successfully created')
             return redirect('accounts:login')
 
@@ -46,6 +49,7 @@ def login_view(request):
         else:
             # Login user. Change his network status to Online
             login(request, user)
+            logger.info(f"UserID: [{user.id}] logged in. ONLINE")
             user.online = True
             user.save()
             return redirect(reverse('core:home'), user=user)
@@ -60,5 +64,7 @@ def logout_view(request):
 
     user = request.user
     logout(request)
+    logger.info(f"UserID{user.id} has logged out")
     user.online = False
-    return redirect(reverse('accounts:start'))
+    user.save()
+    return redirect(reverse('core:start'))

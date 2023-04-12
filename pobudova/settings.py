@@ -57,6 +57,39 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'default': {
+            'format': "[%(asctime)s] - %(levelname)s - %(name)s - %(filename)s - %(message)s",
+            'datefmt': '%d-%m-%Y %H:%M:%S'
+        }
+    },
+
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',  # Print logs to console
+            'formatter': 'default',
+        },
+        'file': {
+            'class': "logging.FileHandler",  # Saves logs to file
+            'formatter': 'default',
+            'filename': 'general.log'  # Saves to this file
+        }
+    },
+
+    'loggers': {
+        'accounts': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',  # Logging messages starts from this level (messages level below this level ignored)
+        }
+    }
+
+}
+
+
 ROOT_URLCONF = 'pobudova.urls'
 
 TEMPLATES = [
