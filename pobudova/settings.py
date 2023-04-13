@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
     # custom apps
     'core',
-    'utilities',
+    'utilitiesmanager',
     'accounts'
 ]
 

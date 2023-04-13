@@ -66,5 +66,5 @@ def logout_view(request):
     logout(request)
     logger.info(f"UserID{user.id} has logged out")
     user.online = False
-    user.save()
+    user.save(update_fields='online')
     return redirect(reverse('core:start'))
