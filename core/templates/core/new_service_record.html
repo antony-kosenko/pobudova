@@ -1,3 +1,6 @@
+{% extends 'core/hub.html' %}
+
+{% block hub_content_box %}
 <div id="service-record-form">
     <form method="POST" action="">{% csrf_token %}
 
@@ -8,3 +11,4 @@
     <input type="submit" name="Submit a Bill">
     </form>
 </div>
+{% endblock %}

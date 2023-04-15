@@ -46,6 +46,7 @@ def login_view(request):
         if user is None:
             messages.error(request, "Login or/and Password are not matching with actual user")
             return render(request, 'accounts/login.html')
+
         else:
             # Login user. Change his network status to Online
             login(request, user)
@@ -66,5 +67,5 @@ def logout_view(request):
     logout(request)
     logger.info(f"UserID{user.id} has logged out")
     user.online = False
-    user.save(update_fields='online')
+    user.save(update_fields=['online'])
     return redirect(reverse('core:start'))

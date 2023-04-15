@@ -41,9 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third-party apps
+    "django_flatpickr",  # Form data picker
+
     # custom apps
     'core',
-    'utilitiesmanager',
     'accounts'
 ]
 
@@ -149,6 +151,9 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_REDIRECT_URL = reverse_lazy('core:home')
 LOGIN_URL = reverse_lazy('accounts:login')
+
+SESSION_COOKIE_AGE = 1200  # "1209600(2 weeks)" by default
+SESSION_SAVE_EVERY_REQUEST = True  # "False" by default
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
