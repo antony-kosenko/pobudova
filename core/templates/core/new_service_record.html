@@ -1,0 +1,10 @@
+<div id="service-record-form">
+    <form method="POST" action="">{% csrf_token %}
+
+    {{ bill_form.media }}
+    {{ bill_form.as_p }}
+    {{ payment_form.as_p }}
+
+    <input type="submit" name="Submit a Bill">
+    </form>
+</div>
