@@ -1,6 +1,11 @@
 {% extends 'core/hub.html' %}
+{% load static %}
+
 
 {% block hub_content_box %}
+<link rel="stylesheet" href="{% static 'core/css/hub_content.css' %}">
+    
+<section class="hub-content-row">
 <div id="service-record-form">
     <form method="POST" action="">{% csrf_token %}
 
@@ -11,4 +16,5 @@
     <input type="submit" name="Submit a Bill">
     </form>
 </div>
+</section>
 {% endblock %}

@@ -1,0 +1,16 @@
+.hub-content-row {
+    display: flex;
+    width: 85%;
+    padding: 20px;
+    border: 1px solid black;
+    flex-grow: 1;
+}
+
+.hub-content-column {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    padding: 20px;
+    border: 1px solid black;
+    flex-grow: 1;
+}
