@@ -1,29 +1,8 @@
-/* Top navbar styling */
-.bg-body-tertiary {
-    /*box-shadow:*/
-    /*  0 1px 1px hsl(0deg 0% 0% / 0.075),*/
-    /*  0 2px 2px hsl(0deg 0% 0% / 0.075),*/
-    /*  0 4px 4px hsl(0deg 0% 0% / 0.075),*/
-    /*  0 8px 8px hsl(0deg 0% 0% / 0.075),*/
-    /*  0 10px 10px hsl(0deg 0% 0% / 0.075)*/
-    /*;*/
-}
-
-/* Sidebar config */
-.sidebar-container {
+html, body {
+    height: 100%;
+    width: 100%;
     margin: 0;
-    position: fixed;
-    border-radius: 10px;
-    left: 20px;
-    top: 30%;
-    padding: 10px;
-    background-color: rgb(220, 220, 220);
-    height: fit-content;
-    width: 70px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    list-style-type: none;
+    padding-top: 35px;
 }
 
 .sidebar-container .sidebar-item {
@@ -62,6 +41,7 @@
 .main-banner {
     display: block;
     max-width: 100vw;
+    top: 70px;
     height: 160px;
     margin: auto;
     object-fit: cover;
@@ -70,10 +50,9 @@
 
 /* Core content */
 .core-content {
-    display: flex;
-    width: calc(98% - 100px);
-    height: 60vh;
-    margin: 20px 2% 0 100px;
+    width: 96%;
+    min-height: 60vh;
+    margin: 20px 2% 0 2%;
     padding: 20px;
     background: #dcdcdc;
     border-radius: 10px;

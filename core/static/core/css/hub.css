@@ -1,0 +1,39 @@
+h2, h3 {
+    margin-bottom: 20px;
+    padding: 0 25px;
+    display: inline-block;
+}
+
+hr {
+    margin: 5px 0;
+}
+
+.hub-body {
+    display: flex;
+    width: 100%;
+    min-height: 350px;
+}
+
+.hub-menu-buttons {
+    display: flex;
+    flex-direction: column;
+    min-width: 110px;
+    height: 100%;
+    justify-content: start;
+}
+
+.hub-menu-buttons a {
+    text-decoration: none;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    text-align: right;
+}
+
+.hub-menu-buttons a:hover {
+    background-color: ghostwhite;
+}
+
+.hub-menu-buttons hr {
+    margin: 0;
+}

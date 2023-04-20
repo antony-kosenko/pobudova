@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{# Head tags : JS, CSS #}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'core/css/hub.css' %}">
+<script src="{% static 'core/js/is_fixed_listener.js' %}" defer></script>
+{% endblock %}
+{# ---------------------- #}
+
+{# Title #}
+{% block title %}
+    Hub
+{% endblock %}
+{# ---------------------- #}
+
+{% block content_title %}
+    <h2>Hub /</h2>{% block hub_submenu_title %}{% endblock %}
+{% endblock %}
+{% block content %}
+<div class="hub-body">
+
+    <div class="hub-menu-buttons">  <!-- Contains Hub navigation menu (left side of 'content' block container) -->
+        <a href="{% url 'core:last_bills' %}">Last Bills</a>
+        <hr>
+        <a href="{% url 'core:create_record' %}">New Record</a>
+        <hr>
+        <a href="">Item</a>
+    </div>
+
+    {% block hub_content_box %}
+    {#  Hub core content. Uses statics from it's own files  #}
+    {% endblock %}
+</div>
+{% endblock %}

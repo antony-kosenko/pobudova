@@ -1,0 +1,38 @@
+.bills-row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 15px;
+    width: 100%;
+    height: 50%;
+}
+
+.bill-item {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    line-height: 25px;
+    flex-basis: calc(20% - 15px);
+    min-width: 250px;
+    /*border: 1px solid black;*/
+    background-color: ghostwhite;
+    border-radius: 10px;
+    box-shadow:
+      0 1px 1px hsl(0deg 0% 0% / 0.075),
+      0 2px 2px hsl(0deg 0% 0% / 0.075),
+      0 4px 4px hsl(0deg 0% 0% / 0.075),
+      0 8px 8px hsl(0deg 0% 0% / 0.075),
+      0 16px 16px hsl(0deg 0% 0% / 0.075)
+    ;
+}
+
+.bill-item span {
+    font-size: 1rem;
+}
+
+.bill-item ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}

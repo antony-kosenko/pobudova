@@ -1,15 +1,14 @@
 {% extends 'core/base.html' %}
-{% load static %}
 
-{# Head imports (including CSS and JS #}
-{% block extra_head %}
-    <link rel="stylesheet" href="{% static 'core/css/index.css' %}">
+{% block title %}
+    Home
 {% endblock %}
 
-{# Title #}
+{# Title of the core content. #}
+{% block content_title %}
+<h2>Dashboard</h2>
+{% endblock %}
 
-
-{# Content (inside a base <section> container with class="core-content" #}
+{# Core content of the Homepage #}
 {% block content %}
-    <h1>Dashboard</h1>
 {% endblock %}
