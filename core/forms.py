@@ -1,12 +1,17 @@
-from django_flatpickr.schemas import FlatpickrOptions
+from django.forms import ModelForm, DateField, ChoiceField
 from django_flatpickr.widgets import DatePickerInput
-from django.forms import ModelForm, DateField
 
 from core.models import Bill, Payment
 
+METRIC_UNITS_CHOICES = (
+    ("m3", "m3"),
+    ("kw", "kW")
+)
+
 
 class BillForm(ModelForm):
-    date_due = DateField(widget=DatePickerInput(options=FlatpickrOptions(altFormat="d/M/Y")))
+    unit = ChoiceField(choices=METRIC_UNITS_CHOICES, required=False)
+    date_due = DateField(widget=DatePickerInput(), required=True)
 
     class Meta:
         model = Bill
@@ -20,9 +25,6 @@ class BillForm(ModelForm):
             "cost_due": "Total Due",
             "is_paid": "Closed"
         }
-        # widgets = {
-        #     "fixed_cost": CheckboxInput(attrs={"id": "is-fixed"})
-        # }
 
     # def clean(self):
     #     # TODO To be simplified (Looks like not working)

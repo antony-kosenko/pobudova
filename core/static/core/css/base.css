@@ -2,25 +2,8 @@ html, body {
     height: 100%;
     width: 100%;
     margin: 0;
-    padding: 0;
+    padding-top: 35px;
 }
-
-/* Sidebar config */
-/*.sidebar-container {*/
-/*    margin: 0;*/
-/*    position: fixed;*/
-/*    border-radius: 10px;*/
-/*    left: 20px;*/
-/*    top: 40%;*/
-/*    padding: 10px;*/
-/*    background-color: rgb(220, 220, 220);*/
-/*    height: fit-content;*/
-/*    width: 70px;*/
-/*    display: flex;*/
-/*    justify-content: space-between;*/
-/*    flex-direction: column;*/
-/*    list-style-type: none;*/
-/*}*/
 
 .sidebar-container .sidebar-item {
     display: flex;
@@ -58,6 +41,7 @@ html, body {
 .main-banner {
     display: block;
     max-width: 100vw;
+    top: 70px;
     height: 160px;
     margin: auto;
     object-fit: cover;

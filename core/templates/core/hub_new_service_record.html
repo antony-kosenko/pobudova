@@ -1,13 +1,19 @@
 {% extends 'core/hub.html' %}
 {% load static %}
 
+{% block hub_submenu_title %}
+    <h3>New Record</h3>
+{% endblock %}
 
 {% block hub_content_box %}
-<link rel="stylesheet" href="{% static 'core/css/hub_content.css' %}">
-    
+<link rel="stylesheet" href="{% static 'core/css/hub_content_layout.css' %}">
+<link rel="stylesheet" href="{% static 'core/css/hub_new_service_record.css' %}">
+
 <section class="hub-content-row">
 <div id="service-record-form">
-    <form method="POST" action="">{% csrf_token %}
+
+    <form method="POST" action="">
+    {% csrf_token %}
 
     {{ bill_form.media }}
     {{ bill_form.as_p }}
@@ -17,4 +23,5 @@
     </form>
 </div>
 </section>
+
 {% endblock %}

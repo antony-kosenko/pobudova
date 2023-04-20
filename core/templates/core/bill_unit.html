@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<ul>
+    <li><span>Recorded: {{ bill.record_date }}</span> </li>
+    <li><span>Service: {{ bill.service_name }}</span></li>
+    <hr>
+    <li><span>Date due: {{ bill.date_due }}</span></li>
+    <li><span>Expected payment: {{ bill.expected_payment }}</span></li>
+    <li><span>Current payment: {{ bill.actual_payment }}</span></li>
+    <hr>
+    <li><span>Status: Pending</span></li>
+</ul>

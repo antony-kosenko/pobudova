@@ -15,21 +15,21 @@
 {# ---------------------- #}
 
 {% block content_title %}
-    <h2>Hub</h2>
+    <h2>Hub /</h2>{% block hub_submenu_title %}{% endblock %}
 {% endblock %}
 {% block content %}
 <div class="hub-body">
 
-
     <div class="hub-menu-buttons">  <!-- Contains Hub navigation menu (left side of 'content' block container) -->
         <a href="{% url 'core:last_bills' %}">Last Bills</a>
+        <hr>
         <a href="{% url 'core:create_record' %}">New Record</a>
+        <hr>
         <a href="">Item</a>
     </div>
 
-    <div class="hub-menu-content">  <!-- Contains core content depends on submenu chosen (right side of 'content' block container) -->
-        {% block hub_content_box %}
-        {% endblock %}
-    </div>
+    {% block hub_content_box %}
+    {#  Hub core content. Uses statics from it's own files  #}
+    {% endblock %}
 </div>
 {% endblock %}
