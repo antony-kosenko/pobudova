@@ -1,5 +1,4 @@
-from django.forms import ModelForm, DateField, ChoiceField
-from django_flatpickr.widgets import DatePickerInput
+from django.forms import ModelForm, ChoiceField, DateInput, DateField
 
 from core.models import Bill, Payment
 
@@ -9,9 +8,16 @@ METRIC_UNITS_CHOICES = (
 )
 
 
+class DatePicker(DateInput):  # datepicker class as widget
+    input_type = 'date'
+
+
 class BillForm(ModelForm):
-    unit = ChoiceField(choices=METRIC_UNITS_CHOICES, required=False)
-    date_due = DateField(widget=DatePickerInput(), required=True)
+    """ Model form based on Bill model.
+    Renders on template to represent a Bill model """
+
+    unit = ChoiceField(choices=METRIC_UNITS_CHOICES)
+    date_due = DateField(widget=DatePicker)
 
     class Meta:
         model = Bill
@@ -26,19 +32,10 @@ class BillForm(ModelForm):
             "is_paid": "Closed"
         }
 
-    # def clean(self):
-    #     # TODO To be simplified (Looks like not working)
-    #     super().clean()
-    #     if not self.fixed_cost:
-    #         if not self.unit:
-    #             raise ValidationError({'unit': 'This field is required.'})
-    #         if not self.current_counter:
-    #             raise ValidationError({'current_counter': 'This field is required.'})
-    #         if not self.cost_per_unit:
-    #             raise ValidationError({'cost_per_unit': 'This field is required.'})
-
 
 class PaymentForm(ModelForm):
+    """ Model form based on Payment model.
+    Represents the model with one field only."""
     class Meta:
         model = Payment
         fields = ('actual_payment',)
