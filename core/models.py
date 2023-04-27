@@ -11,6 +11,8 @@ from accounts.models import User
 class Bill(models.Model):
     service_name = models.CharField(max_length=30)  # TODO Make a list of valid services. Might be typed in custom?
     date_due = models.DateField()
+    date_registered = models.DateField(auto_now_add=True)
+    date_updated = models.DateField(auto_now=True)
     fixed_cost = models.BooleanField(default=False)
     unit = models.CharField(max_length=5, null=True, blank=True, default=None)  # TODO Make a list of valid units. Might be typed in custom?
 
@@ -36,7 +38,7 @@ class Bill(models.Model):
     cost_due = models.DecimalField(max_digits=8, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))])
 
     def __str__(self):
-        return f"Bill[{self.id}], {self.service_name}, {self.date_due}"
+        return f"Bill[{self.id}] | {self.service_name}, {self.date_due}"
 
 
 class Payment(models.Model):

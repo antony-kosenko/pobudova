@@ -1,4 +1,4 @@
-from django.forms import ModelForm, ChoiceField, DateInput, DateField
+from django import forms
 
 from core.models import Bill, Payment
 
@@ -8,20 +8,25 @@ METRIC_UNITS_CHOICES = (
 )
 
 
-class DatePicker(DateInput):  # datepicker class as widget
-    input_type = 'date'
-
-
-class BillForm(ModelForm):
+class BillForm(forms.ModelForm):
     """ Model form based on Bill model.
     Renders on template to represent a Bill model """
 
-    unit = ChoiceField(choices=METRIC_UNITS_CHOICES)
-    date_due = DateField(widget=DatePicker)
+    unit = forms.ChoiceField(choices=METRIC_UNITS_CHOICES, required=False)
 
     class Meta:
         model = Bill
-        fields = "__all__"
+        fields = [
+            "service_name",
+            "date_due",
+            "fixed_cost",
+            "unit",
+            "current_counter",
+            "consumption",
+            "cost_per_unit",
+            "cost_due",
+        ]
+
         labels = {
             "service_name": "Service Name",
             "unit": "Unit",
@@ -32,8 +37,13 @@ class BillForm(ModelForm):
             "is_paid": "Closed"
         }
 
+        widgets = {
+            'service_name': forms.TextInput(attrs={'placeholder': 'e.g. Hot water'}),
+            'date_due': forms.DateInput(format="%d/%m/%Y", attrs={'type': 'date'})
+        }
 
-class PaymentForm(ModelForm):
+
+class PaymentForm(forms.ModelForm):
     """ Model form based on Payment model.
     Represents the model with one field only."""
     class Meta:
