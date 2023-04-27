@@ -1,0 +1,42 @@
+{% extends 'core/hub.html' %}
+{% load static %}
+
+{% block hub_submenu_title %}
+    <h3>Bills list</h3>
+{% endblock %}
+
+{% block hub_content_box %}
+<link rel="stylesheet" href="{% static 'core/css/hub_bills_list.css' %}">
+
+
+<section class="bills-list-body">
+<div class="filters"><i>Filters:</i>
+    <form method="GET">
+        {{ filter.form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<div class="bills-list">
+    {% for bill in page_obj %}
+        <div class="bill-object">
+            <ul>
+              <li><span>Service Name: {{ bill.service_name }}</span></li>
+              <hr>
+              <li><span>Date Due: {{ bill.date_due }}</span></li>
+            </ul>
+            <div class="bill-actions">
+                <a href="">Update</a>
+                <a href="">Delete</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% if page_obj.has_other_pages %}
+
+    {% include 'core/pagination.html' %}   {# Pagination #}
+
+{% endif %}
+</section>
+
+{% endblock %}

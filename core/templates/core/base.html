@@ -24,16 +24,13 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'core:home' %}">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'core:last_bills' %}">Hub</a>
-          </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Manage</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" href="{% url 'core:create_record' %}">New Record</a></li>
+              <li><a class="dropdown-item" href="{% url 'core:last_bills' %}">Last Records</a></li>
+              <li><a class="dropdown-item" href="{% url 'core:bills_list' %}">All Records</a></li>
             </ul>
           </li>
         </ul>
@@ -44,10 +41,10 @@
           </a>
           <ul class="dropdown-menu text-small">
               {% if user.is_authenticated %}
-                <li><span>{{ user.username }}</span></li>
+                <li><span class="dropdown-item"><b>{{ user.username }}</b></span></li>
                 {{user.first_name}}
               {% else %}
-                <li><span>Anonymous</span></li>
+                <li><span class="dropdown-item">Anonymous</span></li>
               {% endif %}
 
             <li><hr class="dropdown-divider"></li>
