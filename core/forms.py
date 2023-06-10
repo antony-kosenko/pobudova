@@ -19,7 +19,7 @@ class BillForm(forms.ModelForm):
         fields = [
             "service_name",
             "date_due",
-            "fixed_cost",
+            "is_fixed_cost",
             "unit",
             "current_counter",
             "consumption",
@@ -34,7 +34,6 @@ class BillForm(forms.ModelForm):
             "consumption": "Consumed",
             "cost_per_unit": "Cost (per unit)",
             "cost_due": "Total Due",
-            "is_paid": "Closed"
         }
 
         widgets = {

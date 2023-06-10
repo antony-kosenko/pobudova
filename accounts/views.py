@@ -1,29 +1,24 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 
-import logging
-
 from accounts.forms import CreateUserForm
-
-
-logger = logging.getLogger('accounts')
+from accounts.services import login_user, authenticate_user, logout_user, register_new_user
 
 
 def register_view(request):
+
     """ Registration of a new User.
      Contains a registration form handles a communication with DB to create a new User object"""
+
     form = CreateUserForm
+
     if request.method == 'POST':
+        # Performs a creation of new user.
         new_user = CreateUserForm(request.POST)
-        if new_user.is_valid():
-            new_user.save()
-            user_name = new_user.cleaned_data.get('username')
-            logger.info(f"New user registered ID: [{new_user.auto_id}]")
-            messages.success(request, f'User {user_name} successfully created')
-            return redirect('accounts:login')
+        register_new_user(request, new_user=new_user)
+        return redirect('accounts:login')
 
     context = {
         "user_creation_form": form
@@ -32,27 +27,22 @@ def register_view(request):
 
 
 def login_view(request):
+
     """ Login page.
      Contains a login form for authentication and authorization a User.
      Allows a User to enter a Home page if logged in successfully"""
 
     if request.method == "POST":
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        # Validating a data as per given credentials
-        user = authenticate(request, username=username, password=password)
+        # Validating a data as per given credentials. Takes 'username' and 'password' from a request.
+        user = authenticate_user(request)
 
         if user is None:
             messages.error(request, "Login or/and Password are not matching with actual user")
             return render(request, 'accounts/login.html')
 
         else:
-            # Login user. Change his network status to Online
-            login(request, user)
-            logger.info(f"UserID: [{user.id}] logged in. ONLINE")
-            user.online = True
-            user.save()
+            # Login user
+            login_user(request, user=user)
             return redirect(reverse('core:home'), user=user)
 
     return render(request, 'accounts/login.html')
@@ -60,12 +50,8 @@ def login_view(request):
 
 @login_required
 def logout_view(request):
-    """ Logout function.
-    Closes a User session."""
 
-    user = request.user
-    logout(request)
-    logger.info(f"UserID{user.id} has logged out")
-    user.online = False
-    user.save(update_fields=['online'])
+    """ Logout view. Closes a User session."""
+
+    logout_user(request)
     return redirect(reverse('core:start'))
