@@ -1,16 +1,14 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import F, Min, Max
+from django.db.models import F
 from django.shortcuts import render
 from django.views.generic import ListView
 
-import re
-
 from core.forms import BillForm, PaymentForm
 from core.models import Payment, Bill
-from .filters import BillFilter
+from core.filters import BillFilter
 
 
-def starting_view(request):
+def starting_page_view(request):
     """ Renders a starting page (introduction page) a User sees once entered on the app page """
     return render(request, 'core/starting_page.html')
 
@@ -22,13 +20,15 @@ def home_view(request):
 
 @login_required()
 def last_bills_view(request):
+
     """ Renders a list of two rows: for receipts still pending a payment and receipts recently paid out.
     Ordered by record date (not a due date)."""
+
     current_user = request.user
 
-    last_pending_bills = Payment.objects.filter(user=current_user, is_closed=False).order_by('record_date')\
+    last_pending_bills = Payment.objects.filter(user=current_user, bill__is_paid=False).order_by('record_date')\
                                        .annotate(service_name=F('bill__service_name'), date_due=F('bill__date_due'))[:4]
-    last_closed_bills = Payment.objects.filter(user=current_user, is_closed=True).order_by('record_date')\
+    last_closed_bills = Payment.objects.filter(user=current_user, bill__is_paid=True).order_by('record_date')\
                                        .annotate(service_name=F('bill__service_name'), date_due=F('bill__date_due'))[:4]
 
     context = {
@@ -41,6 +41,7 @@ def last_bills_view(request):
 
 @login_required()
 def create_record_view(request):
+
     """ Renders a Bill model form to create a new receipt record.
     Additionally, renders an 'actual payment' field from Payment form for tracking receipt's status (closed/pending)"""
 

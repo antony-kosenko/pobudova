@@ -1,46 +1,58 @@
 from django.contrib import messages
+from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 
-import logging
-
 from accounts.forms import CreateUserForm
+from accounts.services import CustomUserServices
+from accounts.dto import CustomUserDTO
+from accounts.repositories import CustomUserRepository
 
 
-logger = logging.getLogger('accounts')
+USER_REPOSITORY = CustomUserRepository()
+USER_SERVICES = CustomUserServices(USER_REPOSITORY)
 
 
 def register_view(request):
-    """ Registration of a new User.
-     Contains a registration form handles a communication with DB to create a new User object"""
-    form = CreateUserForm
+
+    """ Registration of a new User """
+
+    registration_form = CreateUserForm
+
     if request.method == 'POST':
-        new_user = CreateUserForm(request.POST)
-        if new_user.is_valid():
-            new_user.save()
-            user_name = new_user.cleaned_data.get('username')
-            logger.info(f"New user registered ID: [{new_user.auto_id}]")
-            messages.success(request, f'User {user_name} successfully created')
+        registration_form = CreateUserForm(request.POST)
+        # Takes a data passed from a POST request (form), checks for validity and saves data as a new User object
+        if registration_form.is_valid():
+
+            # fetching form's data
+            username = registration_form.cleaned_data["username"]
+            email = registration_form.cleaned_data["email"]
+            password = registration_form.cleaned_data["password1"]
+
+            # bundling form's data to DTO
+            new_user_dto = CustomUserDTO(username=username, email=email, password=password)
+            USER_SERVICES.register_new_user(new_user_dto)
             return redirect('accounts:login')
 
     context = {
-        "user_creation_form": form
+        "user_creation_form": registration_form
     }
     return render(request, 'accounts/register.html', context)
 
 
 def login_view(request):
+
     """ Login page.
      Contains a login form for authentication and authorization a User.
      Allows a User to enter a Home page if logged in successfully"""
 
     if request.method == "POST":
+
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        # Validating a data as per given credentials
+        # Validating a data as per given credentials. Takes 'username' and 'password' from a request.
         user = authenticate(request, username=username, password=password)
 
         if user is None:
@@ -48,11 +60,8 @@ def login_view(request):
             return render(request, 'accounts/login.html')
 
         else:
-            # Login user. Change his network status to Online
+            # Login user
             login(request, user)
-            logger.info(f"UserID: [{user.id}] logged in. ONLINE")
-            user.online = True
-            user.save()
             return redirect(reverse('core:home'), user=user)
 
     return render(request, 'accounts/login.html')
@@ -60,12 +69,8 @@ def login_view(request):
 
 @login_required
 def logout_view(request):
-    """ Logout function.
-    Closes a User session."""
 
-    user = request.user
+    """ Logout view. Closes a User session."""
+
     logout(request)
-    logger.info(f"UserID{user.id} has logged out")
-    user.online = False
-    user.save(update_fields=['online'])
     return redirect(reverse('core:start'))
