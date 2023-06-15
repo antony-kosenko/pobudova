@@ -1,9 +1,12 @@
 from typing import NamedTuple
 
 
-class UserDTO(NamedTuple):
+class CustomUserDTO(NamedTuple):
+
+    """ User data object build to contain and transport User model data """
+
     username: str
     email: str
-    first_name: str
-    last_name: str
     password: str
+    first_name: str = None
+    last_name: str = None

@@ -1,57 +1,32 @@
-from django.contrib import messages
-from django.contrib.auth import login, get_user_model, authenticate, logout
+from django.contrib.auth import get_user_model
 
 import logging
 
-from accounts.forms import CreateUserForm
+from accounts.interfaces import AbstractUserRepository
+from accounts.dto import CustomUserDTO
+from accounts.exeptions import UserAlreadyExistsError
 
 User = get_user_model()
 logger = logging.getLogger('accounts')
 
 
-def authenticate_user(request) -> User:
+class CustomUserServices:
 
-    """ Authenticates user by given credentials"""
+    """ Represents a domain/business logic relates to CustomUser model"""
+    def __init__(self, repository: AbstractUserRepository):
+        self.repository = repository
 
-    username = request.POST.get('username')
-    password = request.POST.get('password')
+    def register_new_user(self, user_dto: CustomUserDTO) -> CustomUserDTO:
 
-    user = authenticate(request, username=username, password=password)
+        """ Performs registration of new CustomUser object """
 
-    return user
+        email = user_dto.email
+        username = user_dto.username
+        password = user_dto.password
 
+        if self.repository.get_user_by_email(email) or self.repository.get_user_by_username(username):
+            raise UserAlreadyExistsError
 
-def login_user(request, user: User) -> User:
-
-    """ Logs user in using default django 'login' function and sets status of user to 'online'"""
-
-    login(request, user)
-    user.online = True
-    user.save()
-    logger.info(f"UserID: [{user.id}] logged in. ONLINE")
-
-    return user
-
-
-def logout_user(request):
-
-    """ Logs out a current uses and sets his status to 'offline'. """
-
-    user = request.user
-    logout(request)
-    logger.info(f"UserID{user.id} has logged out")
-    user.online = False
-    user.save(update_fields=['online'])
-
-
-def register_new_user(request, new_user: CreateUserForm):
-
-    """ Handles a registration process with validation and returns a new user object just registered """
-
-    if new_user.is_valid():
-        new_user.save()
-        user_name = new_user.cleaned_data.get('username')
-        logger.info(f"New user registered ID: [{new_user.auto_id}]")
-        messages.success(request, f'User {user_name} successfully created')
-
+        new_user = self.repository.create_user(user_dto)
+        logger.info(f"New user created | Username: [{username}] | Email: [{email}]")
         return new_user

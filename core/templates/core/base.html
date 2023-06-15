@@ -42,7 +42,6 @@
           <ul class="dropdown-menu text-small">
               {% if user.is_authenticated %}
                 <li><span class="dropdown-item"><b>{{ user.username }}</b></span></li>
-                {{user.first_name}}
               {% else %}
                 <li><span class="dropdown-item">Anonymous</span></li>
               {% endif %}
