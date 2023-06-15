@@ -51,6 +51,7 @@ def login_view(request):
 
         username = request.POST.get('username')
         password = request.POST.get('password')
+
         # Validating a data as per given credentials. Takes 'username' and 'password' from a request.
         user = authenticate(request, username=username, password=password)
 
@@ -71,7 +72,5 @@ def logout_view(request):
 
     """ Logout view. Closes a User session."""
 
-    user = request.user
     logout(request)
-
     return redirect(reverse('core:start'))
