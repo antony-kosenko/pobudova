@@ -5,18 +5,16 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from accounts.forms import CreateUserForm
-from accounts.services import CustomUserServices
 from accounts.dto import CustomUserDTO
-from accounts.repositories import CustomUserRepository
-
-
-USER_REPOSITORY = CustomUserRepository()
-USER_SERVICES = CustomUserServices(USER_REPOSITORY)
+from accounts.containers import UserServiceRepositoryContainer
 
 
 def register_view(request):
 
     """ Registration of a new User """
+    # Initializing a container responsible for dependency injection between CustomUser services and repository
+    container = UserServiceRepositoryContainer()
+    service = container.services()
 
     registration_form = CreateUserForm
 
@@ -32,7 +30,7 @@ def register_view(request):
 
             # bundling form's data to DTO
             new_user_dto = CustomUserDTO(username=username, email=email, password=password)
-            USER_SERVICES.register_new_user(new_user_dto)
+            service.register_new_user(new_user_dto)
             return redirect('accounts:login')
 
     context = {
